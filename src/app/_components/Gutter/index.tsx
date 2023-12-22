@@ -6,7 +6,7 @@ type Props = {
   left?: boolean
   right?: boolean
   className?: string
-  children: React.ReactNode
+  children?: React.ReactNode
   ref?: Ref<HTMLDivElement>
 }
 
