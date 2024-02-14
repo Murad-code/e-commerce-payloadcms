@@ -1,6 +1,8 @@
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { payloadCloud } from '@payloadcms/plugin-cloud'
+// import { payloadCloud } from '@payloadcms/plugin-cloud'
+import { cloudStorage } from '@payloadcms/plugin-cloud-storage'
+import { s3Adapter } from '@payloadcms/plugin-cloud-storage/s3'
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
@@ -22,7 +24,7 @@ import BeforeLogin from './components/BeforeLogin'
 import { createPaymentIntent } from './endpoints/create-payment-intent'
 import { customersProxy } from './endpoints/customers'
 import { productsProxy } from './endpoints/products'
-import { seed } from './endpoints/seed'
+// import { seed } from './endpoints/seed'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
@@ -37,6 +39,18 @@ const mockModulePath = path.resolve(__dirname, './emptyModuleMock.js')
 
 dotenv.config({
   path: path.resolve(__dirname, '../../.env'),
+})
+
+const adapter = s3Adapter({
+  config: {
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY_ID,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    },
+    region: process.env.S3_REGION,
+    // ... Other S3 configuration
+  },
+  bucket: process.env.S3_BUCKET,
 })
 
 export default buildConfig({
@@ -112,11 +126,11 @@ export default buildConfig({
     },
     // The seed endpoint is used to populate the database with some example data
     // You should delete this endpoint before deploying your site to production
-    {
-      path: '/seed',
-      method: 'get',
-      handler: seed,
-    },
+    // {
+    //   path: '/seed',
+    //   method: 'get',
+    //   handler: seed,
+    // },
   ],
   plugins: [
     stripePlugin({
@@ -141,6 +155,13 @@ export default buildConfig({
       generateTitle,
       uploadsCollection: 'media',
     }),
-    payloadCloud(),
+    cloudStorage({
+      collections: {
+        media: {
+          adapter, // see docs for the adapter you want to use
+        },
+      },
+    }),
+    // payloadCloud(),
   ],
 })
