@@ -84,6 +84,7 @@ export const CartPage: React.FC<{
                           metaImage={metaImage}
                           qty={quantity}
                           addItemToCart={addItemToCart}
+                          key={index}
                         />
                       )
                     }

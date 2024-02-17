@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { MinusIcon } from '../../../_components/icons/Minus'
+import { PlusIcon } from '../../../_components/icons/Plus'
 import { Media } from '../../../_components/Media'
 import { Price } from '../../../_components/Price'
 import { RemoveFromCartButton } from '../../../_components/RemoveFromCartButton'
@@ -48,13 +50,7 @@ const CartItem = ({ product, title, metaImage, qty, addItemToCart }) => {
         </div>
         <div className={classes.quantity}>
           <div className={classes.quantityBtn} onClick={decrementQty}>
-            <Image
-              src="/assets/icons/minus.svg"
-              alt="minus"
-              width={24}
-              height={24}
-              className={classes.qtnBt}
-            />
+            <MinusIcon />
           </div>
 
           <input
@@ -65,13 +61,7 @@ const CartItem = ({ product, title, metaImage, qty, addItemToCart }) => {
           />
 
           <div className={classes.quantityBtn} onClick={incrementQty}>
-            <Image
-              src="/assets/icons/plus.svg"
-              alt="plus"
-              width={24}
-              height={24}
-              className={classes.qtnBt}
-            />
+            <PlusIcon />
           </div>
         </div>
       </div>

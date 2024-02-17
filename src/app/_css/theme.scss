@@ -115,11 +115,15 @@
       }
     }
   }
+
+  path {
+    fill: black;
+  }
 }
 
 [data-theme=dark] {
   --theme-elevation-0: var(--color-base-1000);
-  --theme-elevation-50: var(--color-base-950);
+  --theme-elevation-50: var(--color-base-850);
   --theme-elevation-100: var(--color-base-900);
   --theme-elevation-150: var(--color-base-850);
   --theme-elevation-200: var(--color-base-800);
@@ -233,5 +237,9 @@
         color: var(--theme-success-500);
       }
     }
+  }
+
+  path {
+    fill: white;
   }
 }
