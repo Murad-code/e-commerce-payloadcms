@@ -6821,6 +6821,7 @@ type HeaderUpdateDocAccess {
 }
 
 type Footer {
+  copyright: String!
   navItems: [Footer_NavItems!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -6862,9 +6863,33 @@ type footerDocAccess {
 }
 
 type FooterDocAccessFields {
+  copyright: FooterDocAccessFields_copyright
   navItems: FooterDocAccessFields_navItems
   updatedAt: FooterDocAccessFields_updatedAt
   createdAt: FooterDocAccessFields_createdAt
+}
+
+type FooterDocAccessFields_copyright {
+  create: FooterDocAccessFields_copyright_Create
+  read: FooterDocAccessFields_copyright_Read
+  update: FooterDocAccessFields_copyright_Update
+  delete: FooterDocAccessFields_copyright_Delete
+}
+
+type FooterDocAccessFields_copyright_Create {
+  permission: Boolean!
+}
+
+type FooterDocAccessFields_copyright_Read {
+  permission: Boolean!
+}
+
+type FooterDocAccessFields_copyright_Update {
+  permission: Boolean!
+}
+
+type FooterDocAccessFields_copyright_Delete {
+  permission: Boolean!
 }
 
 type FooterDocAccessFields_navItems {
@@ -10136,9 +10161,33 @@ type footerAccess {
 }
 
 type FooterFields {
+  copyright: FooterFields_copyright
   navItems: FooterFields_navItems
   updatedAt: FooterFields_updatedAt
   createdAt: FooterFields_createdAt
+}
+
+type FooterFields_copyright {
+  create: FooterFields_copyright_Create
+  read: FooterFields_copyright_Read
+  update: FooterFields_copyright_Update
+  delete: FooterFields_copyright_Delete
+}
+
+type FooterFields_copyright_Create {
+  permission: Boolean!
+}
+
+type FooterFields_copyright_Read {
+  permission: Boolean!
+}
+
+type FooterFields_copyright_Update {
+  permission: Boolean!
+}
+
+type FooterFields_copyright_Delete {
+  permission: Boolean!
 }
 
 type FooterFields_navItems {
@@ -10920,6 +10969,7 @@ enum Header_NavItems_Link_ReferenceRelationshipInputRelationTo {
 }
 
 input mutationFooterInput {
+  copyright: String!
   navItems: [mutationFooter_NavItemsInput]
   updatedAt: String
   createdAt: String
