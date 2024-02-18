@@ -43,14 +43,11 @@ export const AddToCartButton: React.FC<{
         .join(' ')}
       onClick={
         !isInCart
-          ? () => {
+          ? () =>
               addItemToCart({
                 product,
                 quantity,
-              })
-
-              router.push('/cart')
-            }
+              }) // router.push('/cart')
           : undefined
       }
     />
