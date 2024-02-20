@@ -1,0 +1,13 @@
+.footerLogo {
+  filter: invert(4%);
+}
+
+:global([data-theme="dark"]) {
+    .logo {
+      filter: invert(92%);
+    }
+    .footerLogo {
+      filter: invert(86.5%);
+    }
+}
+  
