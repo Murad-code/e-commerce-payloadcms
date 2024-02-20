@@ -1,0 +1,41 @@
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--color-dark-50);
+    width: 100%;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.email {
+  font-size: 16px;
+  margin: 0;
+  margin-top: 16px;
+}
+
+:global([data-theme='dark']) {
+  .profileHeader {
+    img {
+      filter: invert(100%);
+    }
+  }
+}
