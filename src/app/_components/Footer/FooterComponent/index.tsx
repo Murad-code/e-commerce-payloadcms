@@ -32,7 +32,7 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
           <Link className={classes.logoContainer} href="/">
             <Logo classNames="footerLogo" />
           </Link>
-          <p className={classes.copyright}>{footer.copyright}</p>
+          <p className={classes.copyright}>{footer?.copyright}</p>
           {/* <div className={classes.socialLinks}>
             {navItems.map(item => {
               const icon = item?.link?.icon as Media
