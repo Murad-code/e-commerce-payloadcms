@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { Header } from '../../../payload/payload-types'
 import { fetchHeader } from '../../_api/fetchGlobals'
 import { Gutter } from '../Gutter'
+import { Logo } from '../icons'
 import { HeaderNav } from './Nav'
 
 import classes from './index.module.scss'
@@ -34,11 +35,7 @@ export async function Header() {
               And so `@media (prefers-color-scheme: dark)` will not work
               Instead, we just use CSS to invert the color via `filter: invert(1)` based on `[data-theme="dark"]`
             */}
-            <img
-              className={classes.logo}
-              alt="Payload Logo"
-              src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/payload/src/admin/assets/images/payload-logo-light.svg"
-            />
+            <Logo />
           </Link>
           <HeaderNav header={header} />
         </Gutter>

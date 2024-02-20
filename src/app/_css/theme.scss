@@ -115,10 +115,6 @@
       }
     }
   }
-
-  path {
-    fill: black;
-  }
 }
 
 [data-theme=dark] {
@@ -237,9 +233,5 @@
         color: var(--theme-success-500);
       }
     }
-  }
-
-  path {
-    fill: white;
   }
 }
