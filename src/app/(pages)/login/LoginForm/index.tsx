@@ -19,8 +19,8 @@ type FormData = {
 
 const LoginForm: React.FC = () => {
   const searchParams = useSearchParams()
-  const allParams = searchParams.toString() ? `?${searchParams.toString()}` : ''
-  const redirect = useRef(searchParams.get('redirect'))
+  const allParams = searchParams?.toString() ? `?${searchParams.toString()}` : ''
+  const redirect = useRef(searchParams?.get('redirect'))
   const { login } = useAuth()
   const router = useRouter()
   const [error, setError] = React.useState<string | null>(null)

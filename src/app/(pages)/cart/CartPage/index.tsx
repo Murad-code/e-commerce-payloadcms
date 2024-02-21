@@ -67,26 +67,24 @@ export const CartPage: React.FC<{
                 <ul className={classes.itemsList}>
                   {cart?.items?.map((item, index) => {
                     if (typeof item.product === 'object') {
-                      const {
-                        quantity,
-                        product,
-                        product: { id, title, meta, stripeProductID },
-                      } = item
+                      const { quantity, product } = item
+                      if (product) {
+                        const { id, title, meta, stripeProductID } = product
+                        const isLast = index === (cart?.items?.length || 0) - 1
 
-                      const isLast = index === (cart?.items?.length || 0) - 1
+                        const metaImage = meta?.image
 
-                      const metaImage = meta?.image
-
-                      return (
-                        <CartItem
-                          product={product}
-                          title={title}
-                          metaImage={metaImage}
-                          qty={quantity}
-                          addItemToCart={addItemToCart}
-                          key={index}
-                        />
-                      )
+                        return (
+                          <CartItem
+                            product={product}
+                            title={title}
+                            metaImage={metaImage}
+                            qty={quantity}
+                            addItemToCart={addItemToCart}
+                            key={index}
+                          />
+                        )
+                      }
                     }
                     return null
                   })}

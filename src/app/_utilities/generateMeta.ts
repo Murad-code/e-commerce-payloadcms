@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import type { Page, Product } from '../../payload/payload-types'
 import { mergeOpenGraph } from './mergeOpenGraph'
 
-export const generateMeta = async (args: { doc: Page | Product }): Promise<Metadata> => {
+export const generateMeta = async (args: { doc: Page | Product | null }): Promise<Metadata> => {
   const { doc } = args || {}
 
   const ogImage =
@@ -17,7 +17,7 @@ export const generateMeta = async (args: { doc: Page | Product }): Promise<Metad
     description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
       title: doc?.meta?.title || 'Payload',
-      description: doc?.meta?.description,
+      description: doc?.meta?.description || undefined,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
       images: ogImage
         ? [

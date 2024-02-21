@@ -22,8 +22,12 @@ export const ContentBlock: React.FC<
         {columns &&
           columns.length > 0 &&
           columns.map((col, index) => {
-            const { enableLink, richText, link, size } = col
-
+            const { enableLink, richText, link, size } = col as {
+              enableLink?: boolean
+              richText: { [key: string]: unknown }[]
+              link?: { type: 'reference' | 'custom' } | undefined
+              size: 'oneThird' | 'half' | 'twoThirds' | 'full'
+            }
             return (
               <div key={index} className={[classes.column, classes[`column--${size}`]].join(' ')}>
                 <RichText content={richText} />

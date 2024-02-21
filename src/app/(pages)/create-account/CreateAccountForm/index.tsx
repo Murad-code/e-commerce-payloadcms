@@ -20,7 +20,7 @@ type FormData = {
 
 const CreateAccountForm: React.FC = () => {
   const searchParams = useSearchParams()
-  const allParams = searchParams.toString() ? `?${searchParams.toString()}` : ''
+  const allParams = searchParams?.toString() ? `?${searchParams.toString()}` : ''
   const { login } = useAuth()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -52,7 +52,7 @@ const CreateAccountForm: React.FC = () => {
         return
       }
 
-      const redirect = searchParams.get('redirect')
+      const redirect = searchParams?.get('redirect')
 
       const timer = setTimeout(() => {
         setLoading(true)

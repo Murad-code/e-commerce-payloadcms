@@ -50,15 +50,17 @@ export const Price: React.FC<{
     actualPrice: string
     withQuantity: string
   }>(() => ({
-    actualPrice: priceFromJSON(priceJSON),
-    withQuantity: priceFromJSON(priceJSON, quantity),
+    actualPrice: (priceJSON && priceFromJSON(priceJSON)) || '',
+    withQuantity: (priceJSON && priceFromJSON(priceJSON, quantity)) || '',
   }))
 
   useEffect(() => {
-    setPrice({
-      actualPrice: priceFromJSON(priceJSON),
-      withQuantity: priceFromJSON(priceJSON, quantity),
-    })
+    if (priceJSON) {
+      setPrice({
+        actualPrice: priceFromJSON(priceJSON),
+        withQuantity: priceFromJSON(priceJSON, quantity),
+      })
+    }
   }, [priceJSON, quantity])
 
   return (

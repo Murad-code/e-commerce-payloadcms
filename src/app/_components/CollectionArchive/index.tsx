@@ -13,7 +13,7 @@ import { Pagination } from '../Pagination'
 import classes from './index.module.scss'
 
 type Result = {
-  docs: (Product | string)[]
+  docs: (Product | string)[] | undefined
   hasNextPage: boolean
   hasPrevPage: boolean
   nextPage: number
@@ -95,7 +95,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   }, [isLoading, scrollToRef, results])
 
   useEffect(() => {
-    let timer: NodeJS.Timeout = null
+    let timer: NodeJS.Timeout
 
     if (populateBy === 'collection' && !isRequesting.current) {
       isRequesting.current = true

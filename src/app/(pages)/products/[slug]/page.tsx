@@ -34,7 +34,7 @@ export default async function Product({ params: { slug } }) {
     notFound()
   }
 
-  const { relatedProducts } = product
+  const relatedProducts = product ? product.relatedProducts || [] : undefined
 
   return (
     <>

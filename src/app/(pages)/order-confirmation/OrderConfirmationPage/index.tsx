@@ -11,8 +11,8 @@ import classes from './index.module.scss'
 
 export const OrderConfirmationPage: React.FC<{}> = () => {
   const searchParams = useSearchParams()
-  const orderID = searchParams.get('order_id')
-  const error = searchParams.get('error')
+  const orderID = searchParams?.get('order_id')
+  const error = searchParams?.get('error')
 
   const { clearCart } = useCart()
 

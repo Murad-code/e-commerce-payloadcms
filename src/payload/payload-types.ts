@@ -416,8 +416,8 @@ export interface Order {
   items?:
     | {
         product: string | Product;
-        price?: number | null;
-        quantity?: number | null;
+        price: number;
+        quantity: number;
         id?: string | null;
       }[]
     | null;

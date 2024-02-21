@@ -9,7 +9,7 @@ import { slugField } from '../../fields/slug'
 import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
 import { checkUserPurchases } from './access/checkUserPurchases'
 import { beforeProductChange } from './hooks/beforeChange'
-import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
+// import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { revalidateProduct } from './hooks/revalidateProduct'
 import { ProductSelect } from './ui/ProductSelect'
 
@@ -28,7 +28,7 @@ const Products: CollectionConfig = {
     beforeChange: [beforeProductChange],
     afterChange: [revalidateProduct],
     afterRead: [populateArchiveBlock],
-    afterDelete: [deleteProductFromCarts],
+    // afterDelete: [deleteProductFromCarts],
   },
   versions: {
     drafts: true,

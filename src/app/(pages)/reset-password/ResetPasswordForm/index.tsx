@@ -21,7 +21,7 @@ export const ResetPasswordForm: React.FC = () => {
   const { login } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+  const token = searchParams?.get('token')
 
   const {
     register,
