@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Banner } from 'payload/components'
 
-import { SeedButton } from './SeedButton'
-
 import './index.scss'
 
 const baseClass = 'before-dashboard'
@@ -17,8 +15,7 @@ const BeforeDashboard: React.FC = () => {
       Here&apos;s what to do next:
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <SeedButton />
-          {' with a few products and pages to jump-start your new project, then '}
+          {'Create a few products and pages to jump-start your new project, then '}
           <a href="/">visit your website</a>
           {' to see the results.'}
         </li>

@@ -243,8 +243,7 @@ For more details on how setup a custom server, see the official [Custom Server E
 
 ##  Development
 
-To spin up this example locally, follow the [Quick Start](#quick-start). Then [Connect Stripe](#connect-stripe) to enable payments, and [Seed](#seed) the database with a few products and pages.
-
+To spin up this example locally, follow the [Quick Start](#quick-start). Then [Connect Stripe](#connect-stripe) to enable payments
 ### Docker
 
 Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
@@ -254,13 +253,6 @@ Alternatively, you can use [Docker](https://www.docker.com) to spin up this temp
 1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
 
 That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-### Seed
-
-To seed the database with a few products and pages you can run `yarn seed`. This template also comes with a `GET /api/seed` endpoint you can use to seed the database from the admin panel.
-
-> NOTICE: seeding the database is destructive because it drops your current database to populate a fresh one from the seed template. Only run this command if you are starting a new project or can afford to lose your current data.
-
 
 ### Conflicting routes
 
