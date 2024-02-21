@@ -59,6 +59,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
             name: 'newTab',
             label: 'Open in new tab',
             type: 'checkbox',
+            defaultValue: false,
             admin: {
               width: '50%',
               style: {
@@ -80,7 +81,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       required: true,
       maxDepth: 1,
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
+        condition: (_, siblingData) => siblingData.type === 'reference',
       },
     },
     {
@@ -89,7 +90,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       type: 'text',
       required: true,
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
+        condition: (_, siblingData) => siblingData.type === 'custom',
       },
     },
   ]

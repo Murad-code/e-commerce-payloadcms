@@ -28,7 +28,7 @@ export const CallToActionBlock: React.FC<
           </div>
           <div className={classes.linkGroup}>
             {(links || []).map(({ link }, i) => {
-              return <CMSLink key={i} {...link} invert={invertBackground} />
+              return <CMSLink key={i} {...link} invert={invertBackground as boolean | undefined} />
             })}
           </div>
         </div>

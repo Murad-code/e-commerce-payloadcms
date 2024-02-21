@@ -26,7 +26,7 @@ export const CheckoutForm: React.FC<{}> = () => {
       setIsLoading(true)
 
       try {
-        const { error: stripeError, paymentIntent } = await stripe?.confirmPayment({
+        const { error, paymentIntent }: any = await stripe?.confirmPayment({
           elements: elements!,
           redirect: 'if_required',
           confirmParams: {
@@ -34,8 +34,8 @@ export const CheckoutForm: React.FC<{}> = () => {
           },
         })
 
-        if (stripeError) {
-          setError(stripeError.message)
+        if (error) {
+          setError(error.message)
           setIsLoading(false)
         }
 
@@ -55,11 +55,11 @@ export const CheckoutForm: React.FC<{}> = () => {
                 total: cartTotal.raw,
                 stripePaymentIntentID: paymentIntent.id,
                 items: (cart?.items || [])?.map(({ product, quantity }) => ({
-                  product: typeof product === 'string' ? product : product.id,
+                  product: typeof product === 'string' ? product : product?.id,
                   quantity,
                   price:
                     typeof product === 'object'
-                      ? priceFromJSON(product.priceJSON, 1, true)
+                      ? product?.priceJSON && priceFromJSON(product.priceJSON, 1, true)
                       : undefined,
                 })),
               }),

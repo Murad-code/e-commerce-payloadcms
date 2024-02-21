@@ -1,4 +1,6 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const ContentSecurityPolicy = require('./csp')
 const redirects = require('./redirects')
 const path = require('path')
@@ -8,9 +10,19 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', process.env.NEXT_PUBLIC_SERVER_URL]
-      .filter(Boolean)
-      .map(url => url.replace(/https?:\/\//, '')),
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: [process.env.NEXT_PUBLIC_SERVER_URL],
+        port: '',
+        pathname: '/media/**',
+      },
+    ],
   },
   redirects,
   async headers() {
@@ -60,13 +72,13 @@ module.exports = withPayload(
     // and configure the admin route to your Payload CMS.
 
     // Point to your Payload config (required)
-    configPath: path.resolve(__dirname, './payload/payload.config.ts'),
+    configPath: path.resolve(__dirname, './src/payload/payload.config.ts'),
 
     // Point to custom Payload CSS (optional)
-    cssPath: path.resolve(__dirname, './css/my-custom-payload-styles.css'),
+    // cssPath: path.resolve(__dirname, './css/my-custom-payload-styles.css'),
 
     // Point to your exported, initialized Payload instance (optional, default shown below`)
-    payloadPath: path.resolve(process.cwd(), './payload/payloadClient.ts'),
+    payloadPath: path.resolve(process.cwd(), './src/payload/payloadClient.ts'),
 
     // Set a custom Payload admin route (optional, default is `/admin`)
     // NOTE: Read the "Set a custom admin route" section in the payload/next-payload README.

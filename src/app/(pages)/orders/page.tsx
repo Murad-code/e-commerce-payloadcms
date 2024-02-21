@@ -78,7 +78,7 @@ export default async function Orders() {
                   el="button"
                 />
               </Link>
-              {index !== orders.length - 1 && <HR />}
+              {orders && index !== orders.length - 1 && <HR />}
             </li>
           ))}
         </ul>

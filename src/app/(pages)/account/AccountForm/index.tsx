@@ -83,7 +83,7 @@ const AccountForm: React.FC = () => {
     if (user) {
       reset({
         email: user.email,
-        name: user.name,
+        name: user.name as string | '',
         password: '',
         passwordConfirm: '',
       })

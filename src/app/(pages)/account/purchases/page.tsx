@@ -29,10 +29,10 @@ export default async function Purchases() {
                   ) : (
                     <Link href={`/products/${purchase.slug}`} className={classes.item}>
                       <div className={classes.mediaWrapper}>
-                        {!purchase.meta.image && (
+                        {!purchase?.meta?.image && (
                           <div className={classes.placeholder}>No image</div>
                         )}
-                        {purchase.meta.image && typeof purchase.meta.image !== 'string' && (
+                        {purchase?.meta?.image && typeof purchase.meta.image !== 'string' && (
                           <Media imgClassName={classes.image} resource={purchase.meta.image} />
                         )}
                       </div>

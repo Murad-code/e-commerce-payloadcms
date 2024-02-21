@@ -36,6 +36,6 @@ export const getMeUser = async (args?: {
 
   return {
     user,
-    token,
+    token: token || '',
   }
 }

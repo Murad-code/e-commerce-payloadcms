@@ -104,7 +104,7 @@ export const CheckoutPage: React.FC<{
 
           <ul>
             {cart?.items?.map((item, index) => {
-              if (typeof item.product === 'object') {
+              if (item.product && typeof item.product === 'object') {
                 const {
                   quantity,
                   product,

@@ -10,8 +10,12 @@ import { CMSLink } from '../../Link'
 
 import classes from './index.module.scss'
 
-export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
-  const navItems = header?.navItems || []
+interface HeaderNavProps {
+  header: HeaderType | null
+}
+
+export const HeaderNav: React.FC<HeaderNavProps> = ({ header }) => {
+  const navItems: any = header?.navItems || []
   const { user } = useAuth()
 
   return (

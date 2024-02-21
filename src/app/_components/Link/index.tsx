@@ -4,20 +4,20 @@ import Link from 'next/link'
 import { Page } from '../../../payload/payload-types'
 import { Button, Props as ButtonProps } from '../Button'
 
-type CMSLinkType = {
-  type?: 'custom' | 'reference'
-  url?: string
-  newTab?: boolean
+type CMSLinkType = Partial<{
+  type?: ('reference' | 'custom') | null
+  newTab?: boolean | null
   reference?: {
-    value: string | Page
     relationTo: 'pages'
-  }
-  label?: string
-  appearance?: ButtonProps['appearance']
-  children?: React.ReactNode
-  className?: string
-  invert?: ButtonProps['invert']
-}
+    value: string | Page
+  } | null
+  url?: string | null
+  label: string
+  appearance?: ('default' | 'primary' | 'secondary') | null
+  children: React.ReactNode
+  className: string
+  invert: ButtonProps['invert']
+}>
 
 export const CMSLink: React.FC<CMSLinkType> = ({
   type,
@@ -44,7 +44,7 @@ export const CMSLink: React.FC<CMSLinkType> = ({
 
     if (href || url) {
       return (
-        <Link {...newTabProps} href={href || url} className={className}>
+        <Link {...newTabProps} href={href || url!} className={className}>
           {label && label}
           {children && children}
         </Link>
@@ -55,11 +55,11 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   return (
     <Button
       className={className}
-      newTab={newTab}
+      newTab={newTab || false}
       href={href}
-      appearance={appearance}
+      appearance={appearance || 'default'}
       label={label}
-      invert={invert}
+      invert={invert || false}
     />
   )
 }

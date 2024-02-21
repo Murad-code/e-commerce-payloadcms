@@ -43,13 +43,13 @@ dotenv.config({
 const adapter = s3Adapter({
   config: {
     credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+      accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
     },
     region: process.env.S3_REGION,
     // ... Other S3 configuration
   },
-  bucket: process.env.S3_BUCKET,
+  bucket: process.env.S3_BUCKET as string,
 })
 
 export default buildConfig({
@@ -88,7 +88,7 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   db: mongooseAdapter({
-    url: process.env.DATABASE_URI,
+    url: process.env.DATABASE_URI as string,
     transactionOptions: false,
   }),
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,

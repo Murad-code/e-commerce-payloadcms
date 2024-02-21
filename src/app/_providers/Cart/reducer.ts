@@ -1,6 +1,10 @@
 import type { CartItems, Product, User } from '../../../payload/payload-types'
 
-export type CartItem = CartItems[0]
+export type CartItem = {
+  product?: string | Product | null | undefined
+  quantity?: number | null | undefined
+  id?: string | null | undefined
+} | null
 
 type CartType = User['cart']
 
@@ -34,32 +38,38 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
     case 'MERGE_CART': {
       const { payload: incomingCart } = action
 
-      const syncedItems: CartItem[] = [
+      // Combine the two arrays, filtering out null or undefined values
+      const combinedArray: CartItems = [
         ...(cart?.items || []),
         ...(incomingCart?.items || []),
-      ].reduce((acc: CartItem[], item) => {
-        // remove duplicates
-        const productId = typeof item.product === 'string' ? item.product : item?.product?.id
+      ].filter(item => item != null)
 
-        const indexInAcc = acc.findIndex(({ product }) =>
-          typeof product === 'string' ? product === productId : product?.id === productId,
-        ) // eslint-disable-line function-paren-newline
+      const merged: CartItems = Object.values(
+        combinedArray.reduce((acc, item) => {
+          // Determine a key for each item (use Product.id if product is a Product object, else use product string directly)
+          const key = typeof item.product === 'object' ? item.product?.id : item.product
 
-        if (indexInAcc > -1) {
-          acc[indexInAcc] = {
-            ...acc[indexInAcc],
-            // customize the merge logic here, e.g.:
-            // quantity: acc[indexInAcc].quantity + item.quantity
+          if (key) {
+            if (!acc[key]) {
+              // If this is the first time we've seen this key, initialize it in the accumulator
+              acc[key] = { ...item, quantity: item.quantity || 1 }
+            } else {
+              // If we've seen this key, merge the quantities
+              const existingQuantity = acc[key]?.quantity || 1
+              const additionalQuantity = item.quantity || 1
+              acc[key] = {
+                ...acc[key],
+                quantity: existingQuantity + additionalQuantity,
+              }
+            }
           }
-        } else {
-          acc.push(item)
-        }
-        return acc
-      }, [])
+          return acc
+        }, []),
+      )
 
       return {
         ...cart,
-        items: syncedItems,
+        items: merged,
       }
     }
 
@@ -67,7 +77,7 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
       // if the item is already in the cart, increase the quantity
       const { payload: incomingItem } = action
       const productId =
-        typeof incomingItem.product === 'string' ? incomingItem.product : incomingItem?.product?.id
+        typeof incomingItem?.product === 'string' ? incomingItem.product : incomingItem?.product?.id
 
       const indexInCart = cart?.items?.findIndex(({ product }) =>
         typeof product === 'string' ? product === productId : product?.id === productId,
@@ -75,14 +85,14 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
 
       let withAddedItem = [...(cart?.items || [])]
 
-      if (indexInCart === -1) {
+      if (indexInCart === -1 && incomingItem) {
         withAddedItem.push(incomingItem)
       }
 
       if (typeof indexInCart === 'number' && indexInCart > -1) {
         withAddedItem[indexInCart] = {
           ...withAddedItem[indexInCart],
-          quantity: (incomingItem.quantity || 0) > 0 ? incomingItem.quantity : undefined,
+          quantity: (incomingItem?.quantity || 0) > 0 ? incomingItem?.quantity : undefined,
         }
       }
 

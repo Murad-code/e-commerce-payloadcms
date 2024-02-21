@@ -22,9 +22,7 @@ export default async function Logout() {
   }
 
   return (
-    <Gutter className={classes.logout}>
-      <LogoutPage settings={settings} />
-    </Gutter>
+    <Gutter className={classes.logout}>{settings && <LogoutPage settings={settings} />}</Gutter>
   )
 }
 

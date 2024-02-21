@@ -11,7 +11,7 @@ export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
     id?: string
   }
-> = props => {
+> | null = props => {
   const {
     introContent,
     id,
@@ -24,23 +24,25 @@ export const ArchiveBlock: React.FC<
     categories,
   } = props
 
-  return (
-    <div id={`block-${id}`} className={classes.archiveBlock}>
-      {introContent && (
-        <Gutter className={classes.introContent}>
-          <RichText content={introContent} />
-        </Gutter>
-      )}
-      <CollectionArchive
-        populateBy={populateBy}
-        relationTo={relationTo}
-        populatedDocs={populatedDocs}
-        populatedDocsTotal={populatedDocsTotal}
-        selectedDocs={selectedDocs}
-        categories={categories}
-        limit={limit}
-        sort="-publishedOn"
-      />
-    </div>
-  )
+  if (populateBy && relationTo && limit)
+    return (
+      <div id={`block-${id}`} className={classes.archiveBlock}>
+        {introContent && (
+          <Gutter className={classes.introContent}>
+            <RichText content={introContent} />
+          </Gutter>
+        )}
+        <CollectionArchive
+          populateBy={populateBy}
+          relationTo={relationTo}
+          populatedDocs={populatedDocs}
+          populatedDocsTotal={populatedDocsTotal}
+          selectedDocs={selectedDocs}
+          categories={categories}
+          limit={limit}
+          sort="-publishedOn"
+        />
+      </div>
+    )
+  else return null
 }

@@ -11,12 +11,14 @@ import { inclusions } from './inclusions'
 
 import classes from './index.module.scss'
 
-const FooterComponent = ({ footer }: { footer: Footer }) => {
+const FooterComponent = ({ footer }: { footer: Footer | null }) => {
   const pathname = usePathname()
   const navItems = footer?.navItems || []
 
   return (
-    <footer className={noHeaderFooterUrls.includes(pathname) ? classes.hide : classes.footer}>
+    <footer
+      className={pathname && noHeaderFooterUrls.includes(pathname) ? classes.hide : classes.footer}
+    >
       <Gutter>
         <ul className={classes.inclusions}>
           {inclusions.map((inclusion, index) => (

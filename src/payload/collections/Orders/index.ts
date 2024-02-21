@@ -64,11 +64,13 @@ export const Orders: CollectionConfig = {
           name: 'price',
           type: 'number',
           min: 0,
+          required: true,
         },
         {
           name: 'quantity',
           type: 'number',
           min: 0,
+          required: true,
         },
       ],
     },
