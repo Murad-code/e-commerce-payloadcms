@@ -1,12 +1,15 @@
+'use client'
 {
   /* eslint-disable @next/next/no-img-element */
 }
 
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { Header } from '../../../payload/payload-types'
 import { fetchHeader } from '../../_api/fetchGlobals'
+import { noHeaderFooterUrls } from '../../constants'
 import { Gutter } from '../Gutter'
 import { Logo } from '../icons'
 import { HeaderNav } from './Nav'
@@ -15,6 +18,7 @@ import classes from './index.module.scss'
 
 export async function Header() {
   let header: Header | null = null
+  const pathname = usePathname()
 
   try {
     header = await fetchHeader()
@@ -27,7 +31,11 @@ export async function Header() {
 
   return (
     <>
-      <header className={classes.header}>
+      <header
+        className={
+          pathname && noHeaderFooterUrls.includes(pathname) ? classes.hide : classes.header
+        }
+      >
         <Gutter className={classes.wrap}>
           <Link href="/">
             {/* Cannot use the `<picture>` element here with `srcSet`

@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { useSelectedLayoutSegments } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 import { PayloadAdminBar, PayloadAdminBarProps } from 'payload-admin-bar'
 
 import { useAuth } from '../../_providers/Auth'
+import { noHeaderFooterUrls } from '../../constants'
 import { Gutter } from '../Gutter'
 
 import classes from './index.module.scss'
@@ -18,6 +19,7 @@ export const AdminBar: React.FC<{
   const segments = useSelectedLayoutSegments()
   const collection = segments?.[1] === 'products' ? 'products' : 'pages'
   const [show, setShow] = React.useState(false)
+  const pathname = usePathname()
 
   const { user } = useAuth()
 
@@ -32,7 +34,13 @@ export const AdminBar: React.FC<{
   if (!isAdmin) return null
 
   return (
-    <div className={[classes.adminBar, show && classes.show].filter(Boolean).join(' ')}>
+    <div
+      className={
+        pathname && noHeaderFooterUrls.includes(pathname)
+          ? classes.hide
+          : [classes.adminBar, show && classes.show].filter(Boolean).join(' ')
+      }
+    >
       <Gutter className={classes.blockContainer}>
         <PayloadAdminBar
           {...adminBarProps}

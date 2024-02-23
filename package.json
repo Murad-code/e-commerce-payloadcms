@@ -5,7 +5,8 @@
   "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts nodemon",
+    "dev": "next dev",
+    "start": "next start",
     "stripe:webhooks": "stripe listen --forward-to localhost:8000/stripe/webhooks",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload build",
     "build:server": "tsc --project tsconfig.server.json",
