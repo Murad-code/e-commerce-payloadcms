@@ -3992,7 +3992,6 @@ input Order_items__price_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
-  exists: Boolean
 }
 
 input Order_items__quantity_operator {
@@ -4002,7 +4001,6 @@ input Order_items__quantity_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
-  exists: Boolean
 }
 
 input Order_items__id_operator {
@@ -10687,8 +10685,8 @@ input mutationOrderInput {
 
 input mutationOrder_ItemsInput {
   product: String
-  price: Float
-  quantity: Float
+  price: Float!
+  quantity: Float!
   id: String
 }
 
@@ -10703,8 +10701,8 @@ input mutationOrderUpdateInput {
 
 input mutationOrderUpdate_ItemsInput {
   product: String
-  price: Float
-  quantity: Float
+  price: Float!
+  quantity: Float!
   id: String
 }
 

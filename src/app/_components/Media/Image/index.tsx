@@ -4,6 +4,7 @@ import React from 'react'
 import NextImage, { StaticImageData } from 'next/image'
 
 import cssVariables from '../../../cssVariables'
+import { Media } from '..'
 import { Props as MediaProps } from '../types'
 
 import classes from './index.module.scss'
@@ -44,7 +45,7 @@ export const Image: React.FC<MediaProps> = props => {
 
       const filename = fullFilename
 
-      src = `/media/${filename}`
+      src = `${process.env.NEXT_PUBLIC_S3_ENDPOINT}/${filename}`
     }
   }
 

@@ -65,14 +65,14 @@ export default async function Product({ params: { slug } }) {
   )
 }
 
-export async function generateStaticParams() {
-  try {
-    const products = await fetchDocs<ProductType>('products')
-    return products?.map(({ slug }) => slug)
-  } catch (error) {
-    return []
-  }
-}
+// export async function generateStaticParams() {
+//   try {
+//     const products = await fetchDocs<ProductType>('products')
+//     return products?.map(({ slug }) => slug)
+//   } catch (error) {
+//     return []
+//   }
+// }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode()

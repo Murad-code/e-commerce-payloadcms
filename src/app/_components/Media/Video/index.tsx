@@ -36,7 +36,7 @@ export const Video: React.FC<MediaProps> = props => {
         onClick={onClick}
         ref={videoRef}
       >
-        <source src={`/media/${filename}`} />
+        <source src={`${process.env.NEXT_PUBLIC_S3_ENDPOINT}/${filename}`} />
       </video>
     )
   }

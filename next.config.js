@@ -1,6 +1,4 @@
-/**
- * @type {import('next').NextConfig}
- */
+/** @type {import('next').NextConfig} */
 const ContentSecurityPolicy = require('./csp')
 const redirects = require('./redirects')
 const path = require('path')
@@ -19,13 +17,15 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: [process.env.NEXT_PUBLIC_SERVER_URL],
-        port: '',
-        pathname: '/media/**',
+        hostname: `${process.env.NEXT_PUBLIC_SERVER_URL}`.replace('https://', ''),
+      },
+      {
+        protocol: 'https',
+        hostname: `${process.env.NEXT_PUBLIC_S3_ENDPOINT}`.replace('https://', ''),
       },
     ],
   },
-  redirects,
+  // redirects,
   async headers() {
     const headers = []
 
@@ -33,17 +33,17 @@ const nextConfig = {
     // This is useful for staging environments before they are ready to go live
     // To allow robots to crawl the site, use the `NEXT_PUBLIC_IS_LIVE` env variable
     // You may want to also use this variable to conditionally render any tracking scripts
-    if (!process.env.NEXT_PUBLIC_IS_LIVE) {
-      headers.push({
-        headers: [
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex',
-          },
-        ],
-        source: '/:path*',
-      })
-    }
+    // if (!process.env.NEXT_PUBLIC_IS_LIVE) {
+    //   headers.push({
+    //     headers: [
+    //       {
+    //         key: 'X-Robots-Tag',
+    //         value: 'noindex',
+    //       },
+    //     ],
+    //     source: '/:path*',
+    //   })
+    // }
 
     // Set the `Content-Security-Policy` header as a security measure to prevent XSS attacks
     // It works by explicitly whitelisting trusted sources of content for your website
@@ -51,6 +51,14 @@ const nextConfig = {
     headers.push({
       source: '/(.*)',
       headers: [
+        { key: 'Access-Control-Allow-Credentials', value: 'true' },
+        { key: 'Access-Control-Allow-Origin', value: '*' },
+        { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
+        {
+          key: 'Access-Control-Allow-Headers',
+          value:
+            'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+        },
         {
           key: 'Content-Security-Policy',
           value: ContentSecurityPolicy,
@@ -63,10 +71,9 @@ const nextConfig = {
 }
 
 module.exports = withPayload(
-  {
-    // your Next config here
-    nextConfig,
-  },
+  // your Next config here
+  nextConfig,
+
   {
     // The second argument to `withPayload`
     // allows you to specify paths to your Payload dependencies

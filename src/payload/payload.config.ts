@@ -42,12 +42,12 @@ dotenv.config({
 
 const adapter = s3Adapter({
   config: {
+    endpoint: process.env.NEXT_PUBLIC_S3_ENDPOINT,
+    region: process.env.S3_REGION,
     credentials: {
       accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
     },
-    region: process.env.S3_REGION,
-    // ... Other S3 configuration
   },
   bucket: process.env.S3_BUCKET as string,
 })
@@ -100,10 +100,10 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
+  cors: ['https://checkout.stripe.com', '*', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
     Boolean,
   ),
-  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
+  csrf: ['https://checkout.stripe.com', '*', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
     Boolean,
   ),
   endpoints: [
@@ -149,7 +149,10 @@ export default buildConfig({
     cloudStorage({
       collections: {
         media: {
-          adapter, // see docs for the adapter you want to use
+          adapter,
+          generateFileURL: ({ filename }) => {
+            return `${process.env.NEXT_PUBLIC_S3_ENDPOINT}/${filename}`
+          },
         },
       },
     }),

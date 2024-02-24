@@ -33,7 +33,7 @@ export default async function Page({ params: { slug = 'home' } }) {
     // when deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // so swallow the error here and simply render the page with fallback data where necessary
     // in production you may want to redirect to a 404  page or at least log the error somewhere
-    // console.error(error)
+    console.error(error)
   }
 
   if (!page) {
@@ -53,14 +53,14 @@ export default async function Page({ params: { slug = 'home' } }) {
   )
 }
 
-export async function generateStaticParams() {
-  try {
-    const pages = await fetchDocs<Page>('pages')
-    return pages?.map(({ slug }) => slug)
-  } catch (error) {
-    return []
-  }
-}
+// export async function generateStaticParams() {
+//   try {
+//     const pages = await fetchDocs<Page>('pages')
+//     return pages?.map(({ slug }) => slug)
+//   } catch (error) {
+//     return []
+//   }
+// }
 
 export async function generateMetadata({ params: { slug = 'home' } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode()
