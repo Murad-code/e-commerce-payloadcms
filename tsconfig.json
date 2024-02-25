@@ -24,11 +24,8 @@
       }
     ],
     "paths": {
-      "react": [
-        "./node_modules/@types/react"
-      ]
-    },
-    "strictNullChecks": true
+      "react": ["./node_modules/@types/react"],
+    }
   },
   "include": [
     "**/*.ts",
