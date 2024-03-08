@@ -1,27 +1,45 @@
-FROM node:18.8-alpine as base
+FROM node:21.2-alpine as base
 
-FROM base as builder
-
-WORKDIR /home/node/app
+WORKDIR /app
 COPY package*.json ./
 
 COPY . .
+
+ENV NODE_ENV=production
+ENV PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js
+ENV PORT=8000
+
+ENV DATABASE_URI=
+
+ENV S3_ACCESS_KEY_ID=
+ENV S3_SECRET_ACCESS_KEY=
+ENV S3_BUCKET=
+ENV S3_REGION=
+
+
+ENV NEXT_PUBLIC_S3_ENDPOINT=
+ENV NEXT_PUBLIC_S3_BUCKET=
+ENV PAYLOAD_SECRET=
+ENV PAYLOAD_PUBLIC_SERVER_URL=
+ENV NEXT_PUBLIC_SERVER_URL=
+
+ENV STRIPE_SECRET_KEY=
+ENV PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY=true
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+
+ENV STRIPE_WEBHOOKS_SIGNING_SECRET=
+
+ENV NEXT_PUBLIC_IS_LIVE=false
+
+ENV PAYLOAD_PUBLIC_DRAFT_SECRET=
+ENV NEXT_PRIVATE_DRAFT_SECRET=
+
+ENV REVALIDATION_KEY=demo-revalation-key
+ENV NEXT_PRIVATE_REVALIDATION_KEY=demo-revalation-key
+
 RUN yarn install
 RUN yarn build
 
-FROM base as runtime
-
-ENV NODE_ENV=production
-ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
-
-WORKDIR /home/node/app
-COPY package*.json  ./
-COPY yarn.lock ./
-
-RUN yarn install --production
-COPY --from=builder /home/node/app/dist ./dist
-COPY --from=builder /home/node/app/build ./build
-
-EXPOSE 3000
+EXPOSE 8000
 
 CMD ["node", "dist/server.js"]

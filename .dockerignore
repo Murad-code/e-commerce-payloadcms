@@ -1,0 +1,12 @@
+node_modules
+.git
+*.log
+secret.txt
+build
+.next
+dist
+/media
+.DS_Store
+.env
+.vercel
+.vscode
