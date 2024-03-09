@@ -87,6 +87,10 @@ export default buildConfig({
         },
       }
     },
+    meta: {
+      favicon: '/favicon.svg',
+      titleSuffix: '- Ecommerce',
+    },
   },
   editor: slateEditor({}),
   db: mongooseAdapter({
